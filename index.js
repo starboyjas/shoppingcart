@@ -20,6 +20,8 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/server/views/index.html'));
 });
 
+app.use(`/product`, productRouter);
+app.use(`/index`, indexRouter);
 
 app.listen(port, (err) => {
   if(err) { return console.error(err); }

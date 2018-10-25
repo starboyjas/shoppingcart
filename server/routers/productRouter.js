@@ -1,38 +1,37 @@
-/**
- * productsRouter.js
- */
+
 const express = require('express');
-const router = express.Router(); //eslint-disable-line
+const router = express.Router(); 
 const SimpleJsonStore = require('simple-json-store');
 
-const store = new SimpleJsonStore('./data.json', { products: [] });
+const store = new SimpleJsonStore('./data.json', { product: [] });
 
 router.get('/', (req, res, next) => {
   console.log('Index page only');
   next();
 }, (req, res) => {
-  res.json(store.get('products'));
+  res.json(store.get('product'));
 });
 
 router.get('/:id', (req, res) => {
   let product = {};
-  const pr = store.get('products');
-  note = products.find(products => products.id === req.params.id);
+  const products = store.get('product');
+  products = product.find(product => product.id === req.params.id);
   res.json(product);
 });
 
 router.post('/', (req, res) => {
-  const products = store.get('products');
-  const newNote = {
-    id: products.length > 0 ? products[products.length - 1].id + 1 : 1,
-    title: req.body.title,
-    description: req.body.description
+  const product = store.get('product');
+  const newProduct = {
+    id: product.length > 0 ? product[product.length - 1].id + 1 : 1,
+    productName: req.body.productName,
+    price: req.body.price,
+    itemsLeft: req.body.itemsLeft
   };
 
-  products.push(newNote);
-  store.set('products', products);
+  product.push(newProduct);
+  store.set('product', product);
 
-  res.json(products);
+  res.json(product);
 });
 
 module.exports = router;
