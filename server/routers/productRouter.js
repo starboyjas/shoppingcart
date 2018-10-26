@@ -34,6 +34,25 @@ router.post('', (req, res) => {
   store.set('product', product);
   res.json(product);
 });
+/** router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const notes = store.get('notes');
+
+  let note = {};
+  
+  for (let i = 0; i < notes.length; i++) {
+      if (notes[i].id == id) {
+          notes[i].title = req.body.title;
+          notes[i].description = req.body.description;
+          note = notes[i];
+          break;
+      }
+  }
+  
+  store.set('notes', notes);
+
+  res.json(note);
+});*/
 
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
