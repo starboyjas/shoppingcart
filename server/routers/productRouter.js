@@ -14,12 +14,13 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res) => {
   let product = {};
-  const products = store.get('product');
-  products = product.find(product => product.id === req.params.id);
-  res.json(product);
+  const products = store.get('products');
+  product = products.find(p => p.id === req.params.id);
+  res.json(products);
 });
 
-router.post('/', (req, res) => {
+/** router.post('', (req, res) => {
+
   const product = store.get('product');
   const newProduct = {
     id: product.length > 0 ? product[product.length - 1].id + 1 : 1,
@@ -27,11 +28,18 @@ router.post('/', (req, res) => {
     price: req.body.price,
     itemsLeft: req.body.itemsLeft
   };
-
+  
   product.push(newProduct);
   store.set('product', product);
-
   res.json(product);
-});
+});*/  
+    router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    const products = store.get('product');
+    const newProduct = products.filter(product => Number(product.id) !== Number(id));
+  
+    store.set('product', newProduct);
+    res.json(newProduct);
+  });
 
 module.exports = router;

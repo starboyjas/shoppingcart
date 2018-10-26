@@ -10,19 +10,25 @@ const store = new SimpleJsonStore('./data.json', { product: [] });
 router.get('/', function getIndexPage(req, res) {
     let viewModel = req.viewModel;
     viewModel.product = store.get('product');
-    res.render('index.html', viewModel);
+    res.render('index.pug', viewModel);
 });
 
 
-router.post('/', function submitproduct(req, res) {
-    let product = store.get('product');
-    product.push({
+router.post('/', (req, res) => {
+
+    const product = store.get('product');
+    const newProduct = {
+      id: product.length > 0 ? product[product.length - 1].id + 1 : 1,
       productName: req.body.productName,
       price: req.body.price,
       itemsLeft: req.body.itemsLeft
-    });
+    };
+    
+    product.push(newProduct);
     store.set('product', product);
-    res.redirect('/');
-});
+    res.redirect('/')
+  });
+  
+
 
   module.exports = router;
