@@ -1,6 +1,7 @@
 
 const express = require('express');
 const router = express.Router(); 
+
 const SimpleJsonStore = require('simple-json-store');
 
 const store = new SimpleJsonStore('./data.json', { product: [] });
@@ -14,12 +15,12 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res) => {
   let product = {};
-  const products = store.get('products');
+  const products = store.get('product');
   product = products.find(p => p.id === req.params.id);
-  res.json(products);
+  res.json(product);
 });
 
-/** router.post('', (req, res) => {
+router.post('', (req, res) => {
 
   const product = store.get('product');
   const newProduct = {
@@ -32,14 +33,15 @@ router.get('/:id', (req, res) => {
   product.push(newProduct);
   store.set('product', product);
   res.json(product);
-});*/  
-    router.delete('/:id', (req, res) => {
-    const id = req.params.id;
-    const products = store.get('product');
-    const newProduct = products.filter(product => Number(product.id) !== Number(id));
-  
-    store.set('product', newProduct);
-    res.json(newProduct);
-  });
+});
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  const products = store.get('product');
+  const newProducts = products.filter(p => Number(p.id) !== Number(id));
+
+  store.set('product', newProducts);
+  res.json(newProducts);
+});
 
 module.exports = router;

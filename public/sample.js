@@ -34,31 +34,17 @@
             });
         },
         clear: function() {
-          this.title = null;
-          this.description = null;
+          this.productName = null;
+          this.price = null;
+          this.itemsLeft = null;
         },
         deleteProduct: function(product) {
           var self = this;
-          axios.delete('/product' + product.id)
+          axios.delete('/product/' + product.id)
             .then(function(res) {
-              // self.notes = res.data;
-              var index = -1;
-              for(var i = 0; i < self.products.length; ++i) {
-                if(Number(self.products[i].id) === Number(note.id)) {
-                  index = i;
-                  break;
-                }
-              }
-              self.product.splice(index, 1);
-            })
-            .catch(function(err) {
-            });
-            axios.delete('/product/' + product.id)
-            .then(function(res) {
-              // self.notes = res.data;
               var index = -1;
               for(var i = 0; i < self.product.length; ++i) {
-                if(Number(self.product[i].id) === Number(note.id)) {
+                if(Number(self.product[i].id) === Number(product.id)) {
                   index = i;
                   break;
                 }
@@ -67,10 +53,11 @@
             })
             .catch(function(err) {
             });
+            
         }
       }
     });
         console.log(shopVue);
-    })();
+  })();
 
     

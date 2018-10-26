@@ -1,4 +1,4 @@
-doctype 
+doctype
 html
   head
     meta(charset='utf-8')
@@ -9,7 +9,7 @@ html
     link(href='https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css' rel='stylesheet')
   body
     main#shopVue.container(role='main')
-      h5.display-5 The Alcojery Product List
+      h5#pageTitle.display-5 The Alcojery Product List
       table.table.table-hover#productTable
         thead.thead-dark
           tr
@@ -27,18 +27,19 @@ html
             td
               button.btn.btn-success Update
               span(style='margin-right: 20px;')
-              button.btn.btn-danger Delete
+              button(v-on:click="deleteProduct(product)").btn.btn-danger(value="Reload Page" onClick="document.location.reload(true)") Delete
       form#addProduct(action='/' method='post')
         .form-group
           label(for='productName') Product Name:
           input.form-control(type='text' name='productName' v-model="productName")
         .form-group
           label(for='Price') Price:
-          input.form-control(type='text' name='price' v-model="price")
+          input.form-control(type='number' name='price' v-model="price")
         .form-group
           label(for='itemLeft') Quantity
           input.form-control(type='number' name='itemsLeft' v-model="itemsLeft")
-        button.btn.btn-default(type='submit') Submit
+        button.btn.btn-primary(type='submit') Submit
+        button.btn.btn-defaults#clearBtn(type="button" v-on:click="clear") Clear
 
     script(src="/axios.min.js")
     script(src="/vue.js")

@@ -28,7 +28,6 @@ router.post('/', (req, res) => {
     store.set('product', product);
     res.redirect('/')
   });
-  
-
 
   module.exports = router;
+ 
